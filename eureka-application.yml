@@ -1,0 +1,24 @@
+server:
+  port: 3000
+
+spring:
+  application:
+    #eureka集群时 名字须一致
+    name: eurekaServer
+
+eureka:
+  server:
+    enable-self-preservation: false  #关闭自我保护机制 不关闭不会移除失效服务
+    eviction-interval-timer-in-ms: 4000 #设置清理间隔（单位：毫秒 默认是60*1000）
+
+  instance:
+    hostname: eureka
+
+  client:
+    #不把自己作为一个客户端注册到自己身上 Eureka集群需要打开
+    register-with-eureka: true
+    #不需要从服务端获取注册信息（因为在这里自己就是服务端，而且已经禁用自己注册了） Eureka集群需要打开
+    fetch-registry: true
+    service-url: #微服务要注册到的地址.
+      #http://localhost:3000/eureka
+      defaultZone: http://192.168.0.110:3001/eureka,http://192.168.0.110:3002/eureka
